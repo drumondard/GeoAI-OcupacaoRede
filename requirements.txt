@@ -1,0 +1,10 @@
+streamlit
+google-cloud-bigquery
+pandas-gbq
+leafmap
+geopandas
+shapely
+langchain
+langchain-google-vertexai
+langchain-community
+sqlalchemy-bigquery
