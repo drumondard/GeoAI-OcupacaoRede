@@ -8,3 +8,9 @@ Painel inteligente de monitoramento de ocupação de postes e cabos utilizando B
   >> .\venv\Scripts\activate
 - Rode o app de forma forçada
   >> python -m streamlit run app.py
+
+
+- Sincronizando Tudo (O Ciclo da Automação)
+>> Adicionar: git add app.py
+>> Commit: git commit -m "Fix: inversão de coordenadas e ajuste de região da IA"
+>> Push: git push origin main
