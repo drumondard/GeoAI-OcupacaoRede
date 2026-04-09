@@ -209,8 +209,8 @@ def run_custom_query(
 # Sidebar – configuration + chat interface
 # ---------------------------------------------------------------------------
 
-def render_sidebar(dataset: str) -> tuple[bool, str, str, Optional[str]]:
-    """Render the sidebar and return ``(use_demo, project_id, dataset, creds)``."""
+def render_sidebar(dataset: str) -> tuple[bool, str, str, Optional[str], Optional[str]]:
+    """Render the sidebar and return ``(use_demo, project_id, dataset, creds, user_input)``."""
     st.sidebar.image(
         "https://img.icons8.com/fluency/96/map-marker.png",
         width=60,
@@ -263,7 +263,7 @@ def render_sidebar(dataset: str) -> tuple[bool, str, str, Optional[str]]:
         "O agente de IA traduzirá sua pergunta em SQL e executará a consulta."
     )
 
-    # Initialise chat history
+    # Initialize chat history
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = []
 

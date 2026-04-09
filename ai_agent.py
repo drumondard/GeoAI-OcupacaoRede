@@ -67,7 +67,7 @@ def translate_to_sql(
     msg_lower = user_message.lower()
 
     # --- Simple keyword-based stub ----------------------------------------
-    if any(kw in msg_lower for kw in ("poste", "poste", "pole", "postes")):
+    if any(kw in msg_lower for kw in ("poste", "postes", "pole", "poles")):
         if "ocupad" in msg_lower or "cheio" in msg_lower or "full" in msg_lower:
             sql = (
                 f"SELECT *\n"

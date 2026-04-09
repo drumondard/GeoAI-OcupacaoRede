@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-import os
+import re
 from typing import Optional
 
 import pandas as pd
@@ -14,6 +14,19 @@ try:
     BIGQUERY_AVAILABLE = True
 except ImportError:  # pragma: no cover
     BIGQUERY_AVAILABLE = False
+
+# Regex that matches only safe BigQuery identifiers:
+# project.dataset  or  project.dataset.table  (letters, digits, hyphens, underscores, dots)
+_SAFE_IDENTIFIER_RE = re.compile(r"^[A-Za-z0-9_\-]+(\.[A-Za-z0-9_\-]+){1,2}$")
+
+
+def _validate_identifier(value: str, name: str) -> None:
+    """Raise *ValueError* if *value* is not a safe BigQuery identifier."""
+    if not _SAFE_IDENTIFIER_RE.match(value):
+        raise ValueError(
+            f"Unsafe BigQuery identifier for {name!r}: {value!r}. "
+            "Only letters, digits, hyphens, underscores, and dots are allowed."
+        )
 
 
 def get_client(
@@ -78,6 +91,8 @@ def load_poles(
         ocupacao_pct FLOAT64  (0-100)
         operadora    STRING
     """
+    _validate_identifier(dataset, "dataset")
+    _validate_identifier(table, "table")
     sql = f"""
         SELECT *
         FROM `{dataset}.{table}`
@@ -105,6 +120,8 @@ def load_cables(
         capacidade_gbps FLOAT64
         ocupacao_pct    FLOAT64  (0-100)
     """
+    _validate_identifier(dataset, "dataset")
+    _validate_identifier(table, "table")
     sql = f"""
         SELECT *
         FROM `{dataset}.{table}`
