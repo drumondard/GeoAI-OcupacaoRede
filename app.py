@@ -29,10 +29,9 @@ client = bigquery.Client(project=PROJETO_ID)
 @st.cache_resource
 def configurar_agente_ia():
     try:
-        # Usando o modelo exato do seu print
         llm = ChatVertexAI(
-            model_name="gemini-3.1-flash-lite-preview", 
-            location="us-central1", 
+            model_name="gemini-1.5-flash", 
+            location="southamerica-east1", # Mudando para São Paulo
             temperature=0
         )
         
