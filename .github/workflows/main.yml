@@ -1,0 +1,29 @@
+name: Python CI - GeoAI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Configurando Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Instalando Dependências
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Check de Sintaxe (Lint)
+      run: |
+        # Verifica se o código tem erros básicos sem rodar o app
+        python -m py_compile app.py
